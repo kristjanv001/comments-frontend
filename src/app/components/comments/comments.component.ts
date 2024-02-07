@@ -1,27 +1,24 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { AsyncPipe } from "@angular/common";
+import { Observable } from 'rxjs';
 import { CommentComponent } from "../../components/comment/comment.component";
 import { CommentService } from "../../services/comment.service";
-import { CommentData } from "../../interfaces/comment";
+import { CommentData, Comment } from "../../interfaces/comment";
+import { User } from "../../interfaces/user";
+
 @Component({
   selector: "app-comments",
   standalone: true,
-  imports: [CommentComponent],
+  imports: [CommentComponent, AsyncPipe],
   templateUrl: "./comments.component.html",
 })
-export class CommentsComponent {
-  commentData?: CommentData;
+export class CommentsComponent implements OnInit {
+  commentData$?: Observable<CommentData>;
 
   constructor(private commentService: CommentService) {}
 
   ngOnInit() {
-    this.getComments();
+    this.commentData$ = this.commentService.getCommentData();
   }
 
-  getComments(): void {
-    this.commentService.getComments().subscribe((data) => {
-      console.log(data);
-
-      this.commentData = data;
-    });
-  }
 }

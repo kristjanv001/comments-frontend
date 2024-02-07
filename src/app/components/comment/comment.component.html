@@ -3,10 +3,19 @@
     <!-- header -->
     <div class="flex min-h-16 items-center">
       <div class="flex min-h-4 items-center">
+        <!-- img -->
         <div class="mr-4">
           <img [src]="'assets/images/avatars/image-' + comment.user.username + '.png'" class="h-8 w-8" />
         </div>
-        <span class="text-dark-blue mr-4 font-normal">{{comment.user.username}}</span>
+        <!-- username -->
+        <span class="text-dark-blue mr-2 font-normal">
+          {{comment.user.username}}
+        </span>
+        <!-- label -->
+        @if(currentUser?.username === comment.user.username) {
+          <div class="mr-4 bg-moderate-blue text-white rounded-sm	px-1.5 leading-normal font-normal">you</div>
+        }
+        <!-- date -->
         <span>{{comment.createdAt}}</span>
       </div>
     </div>
@@ -14,7 +23,7 @@
     <!-- content -->
     <div>
       <p>
-        @if (isReply) {
+        @if (comment.replyingTo) {
           <span
             class="text-moderate-blue font-medium">
               {{"@"}}{{comment.replyingTo}}

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable, catchError, of, tap } from "rxjs";
 import { CommentData } from "../interfaces/comment";
 
@@ -11,10 +11,10 @@ export class CommentService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getComments(): Observable<CommentData> {
+  getCommentData(): Observable<CommentData> {
     return this.httpClient.get<CommentData>(this.commentDataLocation).pipe(
-      tap((_) => {
-        //
+      tap((data) => {
+        console.log(data)
       }),
       catchError(this.handleError<CommentData>("getComments")),
     );
@@ -23,6 +23,7 @@ export class CommentService {
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
+
       return of(result as T);
     };
   }

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Comment } from '../../interfaces/comment';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-comment',
@@ -9,5 +10,5 @@ import { Comment } from '../../interfaces/comment';
 })
 export class CommentComponent {
   @Input() comment!: Comment;
-  @Input() isReply = false;
+  @Input() currentUser?: User;
 }
