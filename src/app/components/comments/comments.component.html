@@ -1,11 +1,20 @@
 @if (commentData) {
-  <ul>
-    @for (comment of commentData.comments; track comment.id) {
-      <li class="mb-4">
-        <app-comment [comment]="comment" />
-      </li>
-    }
-  </ul>
+<ul>
+  @for (comment of commentData.comments; track comment.id) {
+  <li class="mb-4">
+    <app-comment [comment]="comment" />
+    <div class="mt-4 border-l-2 border-light-gray">
+      <ul>
+        @for(reply of comment.replies; track reply.id) {
+        <li class="mb-4 pl-4">
+          <app-comment [comment]="reply" />
+        </li>
+        }
+      </ul>
+    </div>
+  </li>
+  }
+</ul>
 } @else {
-  <p>No data available</p>
+<p>No data available</p>
 }
