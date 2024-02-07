@@ -1,0 +1,11 @@
+@if (commentData) {
+  <ul>
+    @for (comment of commentData.comments; track comment.id) {
+      <li class="mb-4">
+        <app-comment [comment]="comment" />
+      </li>
+    }
+  </ul>
+} @else {
+  <p>No data available</p>
+}

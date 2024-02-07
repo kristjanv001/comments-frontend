@@ -1,0 +1,44 @@
+<div class="text-grayish-blue rounded-lg bg-white p-4">
+  <div>
+    <!-- header -->
+    <div class="flex min-h-16 items-center">
+      <div class="flex min-h-4 items-center">
+        <div class="mr-4">
+          <img [src]="'assets/images/avatars/image-' + comment.user.username + '.png'" class="h-8 w-8" />
+        </div>
+        <span class="text-dark-blue mr-4 font-normal">{{comment.user.username}}</span>
+        <span>{{comment.createdAt}}</span>
+      </div>
+    </div>
+
+    <!-- content -->
+    <div>
+      <p>
+        {{comment.content}}
+      </p>
+    </div>
+
+    <!-- footer -->
+    <div class="flex h-full min-h-16 items-center justify-between">
+      <!-- button -->
+      <div class="bg-very-light-gray flex min-h-10 items-center justify-between rounded-lg">
+        <button class="min-h-10 px-2.5">
+          <img src="assets/images/icon-plus.svg" height="14" width="14" />
+        </button>
+        <div class="min-w-8 flex justify-center items-center">
+          <span class="text-moderate-blue font-medium">{{comment.score}}</span>
+        </div>
+        <button class="min-h-10 px-2.5">
+          <img src="assets/images/icon-minus.svg" height="14" width="14" />
+        </button>
+      </div>
+      <!-- reply -->
+      <div>
+        <button class="flex justify-center items-center min-w-16">
+          <img src="assets/images/icon-reply.svg" height="12" width="14" />
+          <span class="font-medium text-moderate-blue ml-2">Reply</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
