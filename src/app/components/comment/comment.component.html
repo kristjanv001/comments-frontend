@@ -14,6 +14,12 @@
     <!-- content -->
     <div>
       <p>
+        @if (isReply) {
+          <span
+            class="text-moderate-blue font-medium">
+              {{"@"}}{{comment.replyingTo}}
+          </span>
+        }
         {{comment.content}}
       </p>
     </div>
