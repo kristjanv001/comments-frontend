@@ -1,4 +1,4 @@
-<div class="text-grayish-blue rounded-lg bg-white p-4">
+<app-card>
   <div>
     <!-- header -->
     <div class="flex min-h-16 items-center">
@@ -8,12 +8,10 @@
           <img [src]="'assets/images/avatars/image-' + comment.user.username + '.png'" class="h-8 w-8" />
         </div>
         <!-- username -->
-        <span class="text-dark-blue mr-2 font-normal">
-          {{comment.user.username}}
-        </span>
+        <span class="text-dark-blue mr-2 font-normal"> {{comment.user.username}} </span>
         <!-- label -->
         @if(currentUser?.username === comment.user.username) {
-          <div class="mr-4 bg-moderate-blue text-white rounded-sm	px-1.5 leading-normal font-normal">you</div>
+        <div class="bg-moderate-blue mr-4 rounded-sm px-1.5 font-normal leading-normal text-white">you</div>
         }
         <!-- date -->
         <span>{{comment.createdAt}}</span>
@@ -24,12 +22,8 @@
     <div>
       <p>
         @if (comment.replyingTo) {
-          <span
-            class="text-moderate-blue font-medium">
-              {{"@"}}{{comment.replyingTo}}
-          </span>
-        }
-        {{comment.content}}
+        <span class="text-moderate-blue font-medium"> {{"@"}}{{comment.replyingTo}} </span>
+        } {{comment.content}}
       </p>
     </div>
 
@@ -40,7 +34,7 @@
         <button class="min-h-10 px-2.5">
           <img src="assets/images/icon-plus.svg" height="14" width="14" />
         </button>
-        <div class="min-w-8 flex justify-center items-center">
+        <div class="flex min-w-8 items-center justify-center">
           <span class="text-moderate-blue font-medium">{{comment.score}}</span>
         </div>
         <button class="min-h-10 px-2.5">
@@ -49,28 +43,28 @@
       </div>
       <!-- reply -->
       @if(currentUser?.username === comment.user.username) {
-        <div class="flex justify-center">
-          <div>
-            <button class="flex justify-center items-center min-w-16">
-              <img src="assets/images/icon-delete.svg" height="12" width="14" />
-              <span class="font-medium text-soft-red ml-2">Delete</span>
-            </button>
-          </div>
-          <div class="ml-4">
-            <button class="flex justify-center items-center min-w-16">
-              <img src="assets/images/icon-edit.svg" height="12" width="14" />
-              <span class="font-medium text-moderate-blue ml-2">Edit</span>
-            </button>
-          </div>
-        </div>
-      } @else {
+      <div class="flex justify-center">
         <div>
-          <button class="flex justify-center items-center min-w-16">
-            <img src="assets/images/icon-reply.svg" height="12" width="14" />
-            <span class="font-medium text-moderate-blue ml-2">Reply</span>
+          <button class="flex min-w-16 items-center justify-center">
+            <img src="assets/images/icon-delete.svg" height="12" width="14" />
+            <span class="text-soft-red ml-2 font-medium">Delete</span>
           </button>
         </div>
+        <div class="ml-4">
+          <button class="flex min-w-16 items-center justify-center">
+            <img src="assets/images/icon-edit.svg" height="12" width="14" />
+            <span class="text-moderate-blue ml-2 font-medium">Edit</span>
+          </button>
+        </div>
+      </div>
+      } @else {
+      <div>
+        <button class="flex min-w-16 items-center justify-center">
+          <img src="assets/images/icon-reply.svg" height="12" width="14" />
+          <span class="text-moderate-blue ml-2 font-medium">Reply</span>
+        </button>
+      </div>
       }
     </div>
   </div>
-</div>
+</app-card>
