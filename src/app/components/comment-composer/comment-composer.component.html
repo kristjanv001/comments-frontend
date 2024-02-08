@@ -1,0 +1,15 @@
+<app-card>
+  <label class="hidden" for="comment-composer">Add a comment</label>
+
+  <div>
+    <textarea
+      placeholder="Add a comment..."
+      class="border-light-gray placeholder-grayish-blue text-grayish-blue min-h-24 w-full rounded-lg border bg-white p-3"
+      name="comment-composer"
+    ></textarea>
+  </div>
+  <div class="flex items-center py-5 justify-between">
+    <app-avatar [username]="currentUser?.username" />
+    <app-button buttonText="Send" buttonType="primary" />
+  </div>
+</app-card>

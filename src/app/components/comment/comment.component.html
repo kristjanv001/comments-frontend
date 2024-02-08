@@ -5,7 +5,7 @@
       <div class="flex min-h-4 items-center">
         <!-- img -->
         <div class="mr-4">
-          <img [src]="'assets/images/avatars/image-' + comment.user.username + '.png'" class="h-8 w-8" />
+          <app-avatar [username]="comment.user.username" />
         </div>
         <!-- username -->
         <span class="text-dark-blue mr-2 font-normal"> {{comment.user.username}} </span>
