@@ -45,10 +45,16 @@
       @if(currentUser?.username === comment.user.username) {
       <div class="flex justify-center">
         <div>
-          <button class="flex min-w-16 items-center justify-center">
+          <button
+            data-modal-target="deleteModal"
+            data-modal-toggle="deleteModal"
+            class="flex min-w-16 items-center justify-center"
+          >
             <img src="assets/images/icon-delete.svg" height="12" width="14" />
             <span class="text-soft-red ml-2 font-medium">Delete</span>
           </button>
+
+          <app-dialog header="Delete Comment"> hello </app-dialog>
         </div>
         <div class="ml-4">
           <button class="flex min-w-16 items-center justify-center">
