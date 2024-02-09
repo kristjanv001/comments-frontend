@@ -8,5 +8,5 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './dialog.component.html'
 })
 export class DialogComponent {
-  @Input() header: string = 'Default Title';
+  @Input() header?: string;
 }

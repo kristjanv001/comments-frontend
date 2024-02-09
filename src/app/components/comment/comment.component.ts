@@ -4,11 +4,12 @@ import { User } from '../../interfaces/user';
 import { CardComponent } from '../shared/card/card.component';
 import { AvatarComponent } from '../shared/avatar/avatar.component';
 import { DialogComponent } from '../shared/dialog/dialog.component';
+import { ButtonComponent } from '../shared/button/button.component';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CardComponent, AvatarComponent, DialogComponent],
+  imports: [CardComponent, AvatarComponent, DialogComponent, ButtonComponent],
   templateUrl: './comment.component.html'
 })
 export class CommentComponent {

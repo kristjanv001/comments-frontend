@@ -54,7 +54,17 @@
             <span class="text-soft-red ml-2 font-medium">Delete</span>
           </button>
 
-          <app-dialog header="Delete Comment"> hello </app-dialog>
+          <app-dialog header="Delete Comment">
+            <div app-dialog-content>
+              Are you sure you want to delete this comment? This will remove the comment and can’t be undone.
+            </div>
+            <div class="flex items-center" app-dialog-footer>
+              <div class="mr-3">
+                <app-button buttonText="No, cancel" buttonType="secondary" />
+              </div>
+              <app-button buttonText="Yes, delete" buttonType="destructive" />
+            </div>
+          </app-dialog>
         </div>
         <div class="ml-4">
           <button class="flex min-w-16 items-center justify-center">
