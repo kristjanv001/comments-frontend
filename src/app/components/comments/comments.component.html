@@ -3,7 +3,7 @@
   @for (comment of commentData.comments; track comment.id) {
   <li class="mb-4 md:mb-5">
     <app-comment [comment]="comment" [currentUser]="commentData.currentUser" />
-    <div class="border-light-gray mt-4 md:mt-5 border-l-2 md:ml-10">
+    <div class="border-light-gray mt-4 border-l-2 md:ml-10 md:mt-5">
       <ul>
         @for(reply of comment.replies; track reply.id) {
         <li class="mb-4 pl-4 md:mb-5 md:pl-10">
