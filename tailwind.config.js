@@ -14,7 +14,10 @@ module.exports = {
         "light-grayish-blue": "#C5C6EF",
         "soft-red": "#ED6368",
         "moderate-blue": "#5357B6"
-      }
+      },
+      gridAutoColumns: {
+              'min': 'min-content',
+            }
     },
   },
   plugins: [
