@@ -13,11 +13,11 @@ export class ButtonComponent {
   get buttonClass(): string {
     switch (this.buttonType) {
       case "primary":
-        return "bg-moderate-blue text-white";
+        return "bg-moderate-blue text-white hover:bg-light-grayish-blue";
       case "destructive":
-        return "bg-red-500 text-white";
+        return "bg-soft-red text-white hover:bg-pale-red";
       case "secondary":
-        return "bg-gray-300 text-black";
+        return "bg-grayish-blue text-white hover:opacity-75";
       default:
         return "";
     }
