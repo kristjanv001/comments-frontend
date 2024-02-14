@@ -15,4 +15,9 @@ import { ButtonComponent } from '../shared/button/button.component';
 export class CommentComponent {
   @Input() comment!: Comment;
   @Input() currentUser?: User;
+  isReplyComposerOpen = false;
+
+  openReplyComposer() {
+    this.isReplyComposerOpen = true;
+  }
 }
