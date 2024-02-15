@@ -19,12 +19,24 @@
     </div>
 
     <!-- content -->
-    <div class="col-span-3 col-start-1 row-start-2 mt-4 max-w-[618px] leading-6 sm:col-span-2 sm:col-start-2">
+    <div class="col-span-3 col-start-1 row-start-2 mt-4 w-full leading-6 sm:col-span-3 sm:col-start-2">
+      @if (isCommentEditorOpen) {
+      <div class="mt-2">
+        <app-comment-composer [currentUser]="currentUser" buttonText="Update" [isEdit]="true" />
+      </div>
+      <!-- <textarea
+          [(ngModel)]="comment.content"
+          class="border-light-gray placeholder-grayish-blue text-grayish-blue min-h-28 w-full rounded-lg border bg-white p-3"
+          name="comment-composer"
+
+        ></textarea> -->
+      } @else {
       <p>
         @if (comment.replyingTo) {
         <span class="text-moderate-blue font-medium"> {{"@"}}{{comment.replyingTo}} </span>
         } {{comment.content}}
       </p>
+      }
     </div>
 
     <!-- counter -->
@@ -79,7 +91,7 @@
           </button>
         </div>
         <div class="ml-4">
-          <button class="group flex min-w-16 items-center justify-center">
+          <button class="group flex min-w-16 items-center justify-center" (click)="openCommentEditor()">
             <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M13.479 2.872 11.08.474a1.75 1.75 0 0 0-2.327-.06L.879 8.287a1.75 1.75 0 0 0-.5 1.06l-.375 3.648a.875.875 0 0 0 .875.954h.078l3.65-.333c.399-.04.773-.216 1.058-.499l7.875-7.875a1.68 1.68 0 0 0-.061-2.371Zm-2.975 2.923L8.159 3.449 9.865 1.7l2.389 2.39-1.75 1.706Z"
@@ -127,7 +139,9 @@
 </app-dialog>
 
 @if (isReplyComposerOpen) {
-  <div class="mt-2">
+<div class="mt-2">
+  <app-card>
     <app-comment-composer [currentUser]="currentUser" buttonText="Reply" />
-  </div>
+  </app-card>
+</div>
 }

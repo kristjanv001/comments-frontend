@@ -16,7 +16,9 @@
   }
 </ul>
 
-<app-comment-composer [currentUser]="commentData.currentUser" />
+<app-card>
+  <app-comment-composer [currentUser]="commentData.currentUser" />
+</app-card>
 
 } @else {
 <p>No data available</p>

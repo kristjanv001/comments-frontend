@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Comment } from '../../interfaces/comment';
 import { User } from '../../interfaces/user';
 import { CardComponent } from '../shared/card/card.component';
@@ -10,15 +11,20 @@ import { CommentComposerComponent } from '../comment-composer/comment-composer.c
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CardComponent, AvatarComponent, DialogComponent, ButtonComponent, CommentComposerComponent],
+  imports: [FormsModule, CardComponent, AvatarComponent, DialogComponent, ButtonComponent, CommentComposerComponent],
   templateUrl: './comment.component.html'
 })
 export class CommentComponent {
   @Input() comment!: Comment;
   @Input() currentUser?: User;
   isReplyComposerOpen = false;
+  isCommentEditorOpen = false;
 
   openReplyComposer() {
     this.isReplyComposerOpen = true;
+  }
+
+  openCommentEditor() {
+    this.isCommentEditorOpen = true;
   }
 }

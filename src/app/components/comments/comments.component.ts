@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { CommentComponent } from "../../components/comment/comment.component";
 import { CommentService } from "../../services/comment.service";
 import { CommentData, Comment } from "../../interfaces/comment";
-import { User } from "../../interfaces/user";
 import { CommentComposerComponent } from "../comment-composer/comment-composer.component";
+import { CardComponent } from "../shared/card/card.component";
 
 @Component({
   selector: "app-comments",
   standalone: true,
-  imports: [CommentComponent, CommentComposerComponent, AsyncPipe],
+  imports: [CommentComponent, CommentComposerComponent, AsyncPipe, CardComponent],
   templateUrl: "./comments.component.html",
 })
 export class CommentsComponent implements OnInit {
