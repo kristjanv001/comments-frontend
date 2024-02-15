@@ -12,4 +12,5 @@ import { ButtonComponent } from '../shared/button/button.component';
 })
 export class CommentComposerComponent {
   @Input() currentUser?: User;
+  @Input() buttonText = "Send";
 }
