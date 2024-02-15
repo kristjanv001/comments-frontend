@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Component, Input } from '@angular/core';
 import { CardComponent } from '../shared/card/card.component';
 import { User } from '../../interfaces/user';
@@ -8,11 +9,14 @@ import { ButtonComponent } from '../shared/button/button.component';
 @Component({
   selector: 'app-comment-composer',
   standalone: true,
-  imports: [CommonModule, CardComponent, AvatarComponent, ButtonComponent],
+  imports: [FormsModule, CommonModule, CardComponent, AvatarComponent, ButtonComponent],
   templateUrl: './comment-composer.component.html'
 })
 export class CommentComposerComponent {
   @Input() currentUser?: User;
   @Input() isEdit = false;
   @Input() buttonText = "Send";
+  @Input() commentContent = "";
+
+  placeholderText = "Add a comment..."
 }
