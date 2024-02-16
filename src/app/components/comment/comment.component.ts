@@ -1,18 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Comment } from '../../interfaces/comment';
-import { User } from '../../interfaces/user';
-import { CardComponent } from '../shared/card/card.component';
-import { AvatarComponent } from '../shared/avatar/avatar.component';
-import { DialogComponent } from '../shared/dialog/dialog.component';
-import { ButtonComponent } from '../shared/button/button.component';
-import { CommentComposerComponent } from '../comment-composer/comment-composer.component';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { Comment } from "../../interfaces/comment";
+import { User } from "../../interfaces/user";
+import { CardComponent } from "../shared/card/card.component";
+import { AvatarComponent } from "../shared/avatar/avatar.component";
+import { DialogComponent } from "../shared/dialog/dialog.component";
+import { ButtonComponent } from "../shared/button/button.component";
+import { CommentComposerComponent } from "../comment-composer/comment-composer.component";
 
 @Component({
-  selector: 'app-comment',
+  selector: "app-comment",
   standalone: true,
   imports: [FormsModule, CardComponent, AvatarComponent, DialogComponent, ButtonComponent, CommentComposerComponent],
-  templateUrl: './comment.component.html'
+  templateUrl: "./comment.component.html",
 })
 export class CommentComponent {
   @Input() comment!: Comment;
@@ -26,5 +26,16 @@ export class CommentComponent {
 
   openCommentEditor() {
     this.isCommentEditorOpen = true;
+  }
+
+  vote(voteType: "upvote" | "downvote") {
+    const votedUsers = this.comment.votedUsers || new Set();
+
+    if (!votedUsers.has(this.currentUser?.username)) {
+      votedUsers.add(this.currentUser?.username);
+
+      voteType === "upvote" ? this.comment.score++ : this.comment.score--;
+    }
+    this.comment.votedUsers = votedUsers;
   }
 }

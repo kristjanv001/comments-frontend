@@ -9,6 +9,7 @@ export interface Comment {
   user: User;
   replies: Comment[];
   replyingTo?: string;
+  votedUsers?: Set<string | undefined>;
 }
 
 export interface CommentData {
