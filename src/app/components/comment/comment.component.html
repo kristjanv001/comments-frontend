@@ -132,14 +132,14 @@
   </div>
 </app-card>
 
-<!-- modal -->
-<app-dialog header="Delete Comment">
+<!-- dialog/modal -->
+<app-dialog header="Delete Comment" name="deleteModal">
   <div app-dialog-content>
     Are you sure you want to delete this comment? This will remove the comment and can’t be undone.
   </div>
   <div class="flex items-center" app-dialog-footer>
     <div class="mr-3">
-      <app-button buttonText="No, cancel" buttonType="secondary" />
+      <app-button buttonText="No, cancel" buttonType="secondary" data-modal-hide="deleteModal" />
     </div>
     <app-button buttonText="Yes, delete" buttonType="destructive" />
   </div>
