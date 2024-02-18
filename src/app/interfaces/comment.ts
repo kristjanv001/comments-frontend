@@ -9,7 +9,7 @@ export interface Comment {
   user: User;
   replies: Comment[];
   replyingTo?: string;
-  votedUsers?: Set<string | undefined>;
+  votedUsers?: { [key: string]: string };
 }
 
 export interface CommentData {

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Comment } from "../../interfaces/comment";
 import { User } from "../../interfaces/user";
@@ -11,12 +12,20 @@ import { CommentComposerComponent } from "../comment-composer/comment-composer.c
 @Component({
   selector: "app-comment",
   standalone: true,
-  imports: [FormsModule, CardComponent, AvatarComponent, DialogComponent, ButtonComponent, CommentComposerComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CardComponent,
+    AvatarComponent,
+    DialogComponent,
+    ButtonComponent,
+    CommentComposerComponent,
+  ],
   templateUrl: "./comment.component.html",
 })
 export class CommentComponent {
   @Input() comment!: Comment;
-  @Input() currentUser?: User;
+  @Input() currentUser!: User;
   isReplyComposerOpen = false;
   isCommentEditorOpen = false;
 
@@ -29,13 +38,26 @@ export class CommentComponent {
   }
 
   vote(voteType: "upvote" | "downvote") {
-    const votedUsers = this.comment.votedUsers || new Set();
+    const { votedUsers } = this.comment;
+    const username = this.currentUser.username;
 
-    if (!votedUsers.has(this.currentUser?.username)) {
-      votedUsers.add(this.currentUser?.username);
+    if (!votedUsers) {
+      const newVotedUsers = { [username]: voteType };
 
-      voteType === "upvote" ? this.comment.score++ : this.comment.score--;
+      this.comment.votedUsers = newVotedUsers;
+      this.comment.score += voteType === "upvote" ? 1 : -1;
+    } else if (votedUsers[username] === voteType) {
+      delete votedUsers[username];
+      this.comment.score += voteType === "upvote" ? -1 : 1;
+    } else {
+      votedUsers[username] = voteType;
+      this.comment.score += voteType === "upvote" ? 1 : -1;
     }
-    this.comment.votedUsers = votedUsers;
+  }
+
+  hasvoted(voteType: "upvote" | "downvote"): boolean {
+    const votedUsers = this.comment.votedUsers || {};
+
+    return votedUsers[this.currentUser?.username || ""] === voteType;
   }
 }
