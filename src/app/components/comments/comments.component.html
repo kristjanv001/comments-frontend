@@ -7,7 +7,7 @@
       <ul>
         @for(reply of comment.replies; track reply.id) {
         <li class="mb-4 pl-4 md:mb-5 md:pl-10">
-          <app-comment [comment]="reply" [currentUser]="commentData.currentUser" />
+          <app-comment [comment]="reply" [currentUser]="commentData.currentUser" (deleteComment)="removeComment($event)" />
         </li>
         }
       </ul>

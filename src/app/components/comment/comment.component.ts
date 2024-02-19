@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Comment } from "../../interfaces/comment";
@@ -8,6 +8,7 @@ import { AvatarComponent } from "../shared/avatar/avatar.component";
 import { DialogComponent } from "../shared/dialog/dialog.component";
 import { ButtonComponent } from "../shared/button/button.component";
 import { CommentComposerComponent } from "../comment-composer/comment-composer.component";
+import { CommentService } from "../../services/comment.service";
 
 @Component({
   selector: "app-comment",
@@ -26,8 +27,12 @@ import { CommentComposerComponent } from "../comment-composer/comment-composer.c
 export class CommentComponent {
   @Input() comment!: Comment;
   @Input() currentUser!: User;
+  @Output() deleteComment = new EventEmitter<number>();
+
   isReplyComposerOpen = false;
   isCommentEditorOpen = false;
+
+  constructor(private commentService: CommentService) {}
 
   openReplyComposer() {
     this.isReplyComposerOpen = true;
@@ -59,5 +64,9 @@ export class CommentComponent {
     const votedUsers = this.comment.votedUsers || {};
 
     return votedUsers[this.currentUser?.username || ""] === voteType;
+  }
+
+  onDeleteComment() {
+    this.deleteComment.emit(this.comment.id);
   }
 }
