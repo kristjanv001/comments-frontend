@@ -29,6 +29,8 @@ export class CommentComponent {
   @Input() currentUser!: User;
   @Output() deleteComment = new EventEmitter<number>();
 
+  @Input() addCommentHandler: () => void = () => {};
+
   isReplyComposerOpen = false;
   isCommentEditorOpen = false;
 

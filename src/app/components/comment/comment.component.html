@@ -10,7 +10,7 @@
         <!-- username -->
         <span class="text-dark-blue mr-2 font-normal"> {{comment.user.username}} </span>
         <!-- label -->
-        @if(currentUser?.username === comment.user.username) {
+        @if(currentUser.username === comment.user.username) {
         <div class="bg-moderate-blue mr-4 rounded-sm px-1.5 font-normal leading-normal text-white">you</div>
         }
         <!-- date -->
@@ -76,7 +76,7 @@
 
     <!-- buttons -->
     <div class="col-span-2 col-start-2 row-start-3 h-10 self-end sm:col-start-3 sm:row-start-1 sm:h-full">
-      @if(currentUser?.username === comment.user.username) {
+      @if(currentUser.username === comment.user.username) {
 
       <!-- dialog/modal -->
       <app-dialog header="Delete Comment" name="deleteModal">
@@ -91,7 +91,6 @@
             buttonText="Yes, delete"
             buttonType="destructive"
             data-modal-hide="deleteModal"
-            (click)="onDeleteComment()"
           />
         </div>
       </app-dialog>

@@ -1,7 +1,7 @@
 <div>
   <label class="hidden" for="comment-composer">Add a comment</label>
   <div
-    class="grid grid-cols-2 sm:grid-cols-[max-content_1fr] "
+    class="grid grid-cols-2 sm:grid-cols-[max-content_1fr]"
     [ngClass]="{'sm:grid-rows-[max-content_1fr]': isEdit == true}"
   >
     <div
@@ -9,31 +9,36 @@
       [ngClass]="{'sm:mx-4': isEdit == false}"
     >
       @if (isEdit) {
-        <textarea
-          [(ngModel)]="commentContent"
-          class="border-light-gray placeholder-grayish-blue text-grayish-blue min-h-28 w-full rounded-lg border bg-white p-3"
-          name="comment-composer"
-        ></textarea>
+      <textarea
+        [(ngModel)]="commentContent"
+        class="border-light-gray placeholder-grayish-blue text-grayish-blue min-h-28 w-full rounded-lg border bg-white p-3"
+        name="comment-composer"
+      ></textarea>
       } @else {
-        <textarea
-          [placeholder]="placeholderText"
-          class="border-light-gray placeholder-grayish-blue text-grayish-blue min-h-24 w-full rounded-lg border bg-white p-3"
-          name="comment-composer"
-        ></textarea>
+      <form [formGroup]="commentForm" (ngSubmit)="handleSubmit()">
+        <label for="comment-composer">
+          <span class="hidden">Add a comment</span>
+          <textarea
+            [placeholder]="placeholderText"
+            class="border-light-gray placeholder-grayish-blue text-grayish-blue min-h-24 w-full rounded-lg border bg-white p-3"
+            formControlName="body"
+          ></textarea>
+        </label>
+      </form>
       }
     </div>
 
     @if (!isEdit) {
-      <div class="flex h-8 w-8 items-center self-center sm:col-start-1 sm:row-start-1 sm:h-10 sm:w-10 sm:items-start">
-        <app-avatar [username]="currentUser?.username" />
-      </div>
+    <div class="flex h-8 w-8 items-center self-center sm:col-start-1 sm:row-start-1 sm:h-10 sm:w-10 sm:items-start">
+      <app-avatar [username]="currentUser?.username" />
+    </div>
     }
 
     <div
-      class="flex justify-end "
+      class="flex justify-end"
       [ngClass]="{'sm:col-start-3 sm:row-start-1': isEdit == false, 'col-start-2 sm:mt-4': isEdit == true}"
     >
-      <app-button [buttonText]="buttonText" buttonType="primary" />
+      <app-button [buttonText]="buttonText" buttonType="primary" [clickHandler]="handleSubmit.bind(this)" />
     </div>
   </div>
 </div>

@@ -1,13 +1,13 @@
-@if (commentData$ | async; as commentData) {
+@if (comments && currentUser$ | async; as currentUser) {
 <ul>
-  @for (comment of commentData.comments; track comment.id) {
+  @for (comment of comments; track comment.id) {
   <li class="mb-4 md:mb-5">
-    <app-comment [comment]="comment" [currentUser]="commentData.currentUser" />
+    <app-comment [comment]="comment" [currentUser]="currentUser" />
     <div class="border-light-gray mt-4 border-l-2 md:ml-10 md:mt-5">
       <ul>
         @for(reply of comment.replies; track reply.id) {
         <li class="mb-4 pl-4 md:mb-5 md:pl-10">
-          <app-comment [comment]="reply" [currentUser]="commentData.currentUser" (deleteComment)="removeComment($event)" />
+          <app-comment [comment]="reply" [currentUser]="currentUser" />
         </li>
         }
       </ul>
@@ -17,7 +17,7 @@
 </ul>
 
 <app-card>
-  <app-comment-composer [currentUser]="commentData.currentUser" />
+  <app-comment-composer [currentUser]="currentUser" [clickHandler]="add.bind(this)" />
 </app-card>
 
 } @else {
