@@ -3,6 +3,7 @@ import { AsyncPipe } from "@angular/common";
 import { Observable, of, switchMap } from "rxjs";
 import { CommentComponent } from "../../components/comment/comment.component";
 import { CommentService } from "../../services/comment.service";
+import { InMemoryDataService } from "../../services/in-memory-data.service";
 import { CommentComposerComponent } from "../comment-composer/comment-composer.component";
 import { CardComponent } from "../shared/card/card.component";
 import { Comment } from "../../interfaces/comment";
@@ -18,7 +19,10 @@ export class CommentsComponent implements OnInit {
   comments: Comment[] = [];
   currentUser$?: Observable<User>;
 
-  constructor(private commentService: CommentService) {}
+  constructor(
+    private commentService: CommentService,
+    private inMemoryDataService: InMemoryDataService,
+  ) {}
 
   ngOnInit() {
     this.getComments();
@@ -36,7 +40,7 @@ export class CommentsComponent implements OnInit {
       ?.pipe(
         switchMap((user) => {
           const newComment: Comment = {
-            id: 11,
+            id: this.inMemoryDataService.genId(this.comments),
             content: newCommentBody,
             createdAt: "just now",
             score: 0,

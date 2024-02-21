@@ -84,7 +84,7 @@ export class InMemoryDataService implements InMemoryDbService {
     return { comments, user };
   }
 
-  genId(commentData: CommentData): number {
-    return commentData.comments.length > 0 ? Math.max(...commentData.comments.map((comment) => comment.id)) + 1 : 11;
+  genId(comments: Comment[]): number {
+    return comments.length > 0 ? Math.max(...comments.map((comment) => comment.id)) + 1 : 11;
   }
 }

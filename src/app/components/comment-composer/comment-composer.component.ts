@@ -30,5 +30,7 @@ export class CommentComposerComponent {
     const bodyValue = this.commentForm.value.body ?? "";
 
     this.clickHandler(bodyValue);
+    this.commentForm.reset();
+
   }
 }
