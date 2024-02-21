@@ -71,4 +71,28 @@ export class CommentComponent {
   onDeleteComment() {
     this.deleteComment.emit(this.comment.id);
   }
+
+  reply() {
+    console.log("replying")
+    // this.currentUser$
+    //   ?.pipe(
+    //     switchMap((user) => {
+    //       const newComment: Comment = {
+    //         id: this.inMemoryDataService.genId(this.comments),
+    //         content: newCommentBody,
+    //         createdAt: "just now",
+    //         score: 0,
+    //         user: {
+    //           image: user.image,
+    //           username: user.username,
+    //         },
+    //         replies: [],
+    //       };
+    //       return this.commentService.addComment(newComment);
+    //     }),
+    //   )
+    //   .subscribe((comment) => {
+    //     this.comments.push(comment);
+    //   });
+  }
 }

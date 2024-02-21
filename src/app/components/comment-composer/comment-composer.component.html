@@ -24,12 +24,13 @@
             formControlName="body"
             required
           ></textarea>
-          <p *ngIf="bodyControl?.hasError('required') && bodyControl?.touched" class="text-soft-red bg-red-100 py-2 px-4 rounded-full mt-4 inline-flex">
-            Comment is required
-          </p>
-          <p *ngIf="bodyControl?.hasError('minlength') && bodyControl?.touched" class="text-soft-red bg-red-100 py-2 px-4 rounded-full mt-4 inline-flex">
-            Comment must be at least 4 characters long
-          </p>
+          <div
+            *ngIf="bodyControl?.touched"
+            class="text-soft-red inline-flex rounded-full bg-red-100 px-2 py-1 text-xs"
+          >
+            <p *ngIf="bodyControl?.hasError('required')">Comment is required</p>
+            <p *ngIf="bodyControl?.hasError('minlength')">Comment must be at least 4 characters long</p>
+          </div>
         </label>
       </form>
       }
