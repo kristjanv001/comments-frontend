@@ -5,7 +5,7 @@ import { CardComponent } from "../shared/card/card.component";
 import { User } from "../../interfaces/user";
 import { AvatarComponent } from "../shared/avatar/avatar.component";
 import { ButtonComponent } from "../shared/button/button.component";
-import { ReactiveFormsModule, FormControl, FormGroup } from "@angular/forms";
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-comment-composer",
@@ -23,14 +23,21 @@ export class CommentComposerComponent {
   placeholderText = "Add a comment...";
 
   commentForm = new FormGroup({
-    body: new FormControl(""),
+    body: new FormControl("", [Validators.required, Validators.minLength(4)]),
   });
 
+  get bodyControl() {
+    return this.commentForm.get('body');
+  }
+
   handleSubmit() {
-    const bodyValue = this.commentForm.value.body ?? "";
+    this.commentForm.markAllAsTouched();
 
-    this.clickHandler(bodyValue);
-    this.commentForm.reset();
+    if (this.commentForm.valid) {
+      const bodyValue = this.commentForm.value.body ?? "";
 
+      this.clickHandler(bodyValue);
+      this.commentForm.reset();
+    }
   }
 }

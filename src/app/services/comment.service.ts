@@ -34,10 +34,9 @@ export class CommentService {
   }
 
   addComment(newComment: Comment): Observable<Comment> {
-    console.log("incoming newComment", newComment);
     return this.httpClient.post<Comment>(this.commentsAPI, newComment, this.httpOptions).pipe(
       tap((newComment: Comment) => {
-        console.log("added a new comment", newComment);
+        // console.log("added a new comment");
       }),
       catchError(this.handleError<Comment>("addComment")),
     );

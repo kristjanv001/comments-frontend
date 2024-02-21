@@ -22,7 +22,14 @@
             [placeholder]="placeholderText"
             class="border-light-gray placeholder-grayish-blue text-grayish-blue min-h-24 w-full rounded-lg border bg-white p-3"
             formControlName="body"
+            required
           ></textarea>
+          <p *ngIf="bodyControl?.hasError('required') && bodyControl?.touched" class="text-soft-red bg-red-100 py-2 px-4 rounded-full mt-4 inline-flex">
+            Comment is required
+          </p>
+          <p *ngIf="bodyControl?.hasError('minlength') && bodyControl?.touched" class="text-soft-red bg-red-100 py-2 px-4 rounded-full mt-4 inline-flex">
+            Comment must be at least 4 characters long
+          </p>
         </label>
       </form>
       }
@@ -38,7 +45,12 @@
       class="flex justify-end"
       [ngClass]="{'sm:col-start-3 sm:row-start-1': isEdit == false, 'col-start-2 sm:mt-4': isEdit == true}"
     >
-      <app-button [buttonText]="buttonText" buttonType="primary" [clickHandler]="handleSubmit.bind(this)" />
+      <app-button
+        [buttonText]="buttonText"
+        buttonType="primary"
+        [clickHandler]="handleSubmit.bind(this)"
+        [disabled]="false"
+      />
     </div>
   </div>
 </div>
