@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { Subscription } from "rxjs";
 import { Comment } from "../../interfaces/comment";
 import { User } from "../../interfaces/user";
 import { CardComponent } from "../shared/card/card.component";
@@ -29,15 +30,18 @@ export class CommentComponent {
   @Input() parentComment!: Comment;
   @Input() currentUser!: User;
   @Output() deleteComment = new EventEmitter<number>();
-
   @Input() addCommentHandler: () => void = () => {};
 
   isReplyComposerOpen = false;
   isCommentEditorOpen = false;
 
-  constructor(
-    private commentService: CommentService,
-  ) {}
+  commentSubscription?: Subscription;
+
+  constructor(private commentService: CommentService) {}
+
+  ngOnDestroy() {
+    this.commentSubscription?.unsubscribe();
+  }
 
   openReplyComposer() {
     this.isReplyComposerOpen = true;
@@ -92,7 +96,7 @@ export class CommentComponent {
       },
     };
 
-    this.commentService.addReply(newReply).subscribe((reply) => {
+    this.commentSubscription = this.commentService.addReply(newReply).subscribe((reply) => {
       if (this.comment.replies) {
         this.comment.replies.push(reply);
       } else {

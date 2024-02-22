@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AsyncPipe } from "@angular/common";
-import { Observable, of, switchMap } from "rxjs";
+import { Subscription } from "rxjs";
 import { CommentComponent } from "../../components/comment/comment.component";
 import { CommentService } from "../../services/comment.service";
-import { InMemoryDataService } from "../../services/in-memory-data.service";
 import { CommentComposerComponent } from "../comment-composer/comment-composer.component";
 import { CardComponent } from "../shared/card/card.component";
 import { Comment } from "../../interfaces/comment";
@@ -17,22 +16,24 @@ import { User } from "../../interfaces/user";
 })
 export class CommentsComponent implements OnInit {
   comments: Comment[] = [];
-  currentUser$?: Observable<User>;
   currentUser?: User;
+  currentUserSubscription?: Subscription;
+  commentsSubscription?: Subscription;
 
-  constructor(
-    private commentService: CommentService,
-    private inMemoryDataService: InMemoryDataService,
-  ) {}
+  constructor(private commentService: CommentService) {}
 
   ngOnInit() {
     this.getUser();
     this.getComments();
-    // this.currentUser$ = this.commentService.getUser();
+  }
+
+  ngOnDestroy() {
+    this.currentUserSubscription?.unsubscribe();
+    this.commentsSubscription?.unsubscribe();
   }
 
   getComments(): void {
-    this.commentService.getComments().subscribe((commentsData) => {
+    this.commentsSubscription = this.commentService.getComments().subscribe((commentsData) => {
       this.comments = commentsData;
     });
   }
@@ -57,7 +58,7 @@ export class CommentsComponent implements OnInit {
         replies: [],
       };
 
-      this.commentService.addReply(newComment).subscribe((comment) => {
+      this.currentUserSubscription = this.commentService.addReply(newComment).subscribe((comment) => {
         this.comments.push(comment);
       });
     }
