@@ -1,5 +1,4 @@
 import { User } from "./user";
-import { Image } from "./image";
 
 export interface Comment {
   id: number;
@@ -10,12 +9,4 @@ export interface Comment {
   replies?: Comment[];
   replyingTo?: string;
   votedUsers?: { [key: string]: string };
-}
-
-export interface CommentData {
-  currentUser: {
-    image: Image;
-    username: string;
-  };
-  comments: Comment[];
 }

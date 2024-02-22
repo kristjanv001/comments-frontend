@@ -18,6 +18,7 @@ import { User } from "../../interfaces/user";
 export class CommentsComponent implements OnInit {
   comments: Comment[] = [];
   currentUser$?: Observable<User>;
+  currentUser?: User;
 
   constructor(
     private commentService: CommentService,
@@ -25,8 +26,9 @@ export class CommentsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getUser();
     this.getComments();
-    this.currentUser$ = this.commentService.getUser();
+    // this.currentUser$ = this.commentService.getUser();
   }
 
   getComments(): void {
@@ -35,26 +37,29 @@ export class CommentsComponent implements OnInit {
     });
   }
 
-  add(newCommentBody: string) {
-    this.currentUser$
-      ?.pipe(
-        switchMap((user) => {
-          const newComment: Comment = {
-            id: this.inMemoryDataService.genId(this.comments),
-            content: newCommentBody,
-            createdAt: "just now",
-            score: 0,
-            user: {
-              image: user.image,
-              username: user.username,
-            },
-            replies: [],
-          };
-          return this.commentService.addComment(newComment);
-        }),
-      )
-      .subscribe((comment) => {
+  getUser(): void {
+    this.commentService.getUser().subscribe((user) => {
+      this.currentUser = user;
+    });
+  }
+
+  addComment(newCommentBody: string) {
+    if (this.currentUser) {
+      const newComment: Comment = {
+        id: this.commentService.genId(),
+        content: newCommentBody,
+        createdAt: "just now",
+        score: 0,
+        user: {
+          image: this.currentUser.image,
+          username: this.currentUser.username,
+        },
+        replies: [],
+      };
+
+      this.commentService.addReply(newComment).subscribe((comment) => {
         this.comments.push(comment);
       });
+    }
   }
 }

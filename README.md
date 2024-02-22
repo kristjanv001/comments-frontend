@@ -6,7 +6,7 @@
 
 This is mock comments component - a small demo app built with Angular. The comment card layout relies heavily on css grid as the layout changes quite a bit depending on the screen size.
 
-At the moment, I've only implemented the upvote/downvote functionality. It works similarly to Reddit's - users can only leave a single vote and the vote resets back to its original value if the method receives the same vote type.
+At the moment, it's only possible to up/down vote and add a new comment. Voting works similarly to Reddit's - users can only leave a single vote and the vote resets back to its original value if the method receives the same vote type.
 
 ## 🥞 Stack
 

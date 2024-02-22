@@ -26,6 +26,7 @@ import { CommentService } from "../../services/comment.service";
 })
 export class CommentComponent {
   @Input() comment!: Comment;
+  @Input() parentComment!: Comment;
   @Input() currentUser!: User;
   @Output() deleteComment = new EventEmitter<number>();
 
@@ -34,7 +35,9 @@ export class CommentComponent {
   isReplyComposerOpen = false;
   isCommentEditorOpen = false;
 
-  constructor(private commentService: CommentService) {}
+  constructor(
+    private commentService: CommentService,
+  ) {}
 
   openReplyComposer() {
     this.isReplyComposerOpen = true;
@@ -42,6 +45,10 @@ export class CommentComponent {
 
   openCommentEditor() {
     this.isCommentEditorOpen = true;
+  }
+
+  closeReplyComposer() {
+    this.isReplyComposerOpen = false;
   }
 
   vote(voteType: "upvote" | "downvote") {
@@ -72,27 +79,27 @@ export class CommentComponent {
     this.deleteComment.emit(this.comment.id);
   }
 
-  reply() {
-    console.log("replying")
-    // this.currentUser$
-    //   ?.pipe(
-    //     switchMap((user) => {
-    //       const newComment: Comment = {
-    //         id: this.inMemoryDataService.genId(this.comments),
-    //         content: newCommentBody,
-    //         createdAt: "just now",
-    //         score: 0,
-    //         user: {
-    //           image: user.image,
-    //           username: user.username,
-    //         },
-    //         replies: [],
-    //       };
-    //       return this.commentService.addComment(newComment);
-    //     }),
-    //   )
-    //   .subscribe((comment) => {
-    //     this.comments.push(comment);
-    //   });
+  addReply(replyBody: string) {
+    const newReply: Comment = {
+      id: this.commentService.genId(),
+      content: replyBody,
+      createdAt: "just now",
+      replyingTo: this.comment.user.username,
+      score: 0,
+      user: {
+        image: this.currentUser.image,
+        username: this.currentUser.username,
+      },
+    };
+
+    this.commentService.addReply(newReply).subscribe((reply) => {
+      if (this.comment.replies) {
+        this.comment.replies.push(reply);
+      } else {
+         this.parentComment?.replies?.push(reply);
+      }
+    });
+
+    this.closeReplyComposer();
   }
 }

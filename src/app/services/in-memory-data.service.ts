@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { InMemoryDbService } from "angular-in-memory-web-api";
-import { Comment, CommentData } from "../interfaces/comment";
+import { Comment } from "../interfaces/comment";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +17,7 @@ export class InMemoryDataService implements InMemoryDbService {
       username: "juliusomo",
     };
 
-    const comments = [
+    const comments: Comment[] = [
       {
         id: 1,
         content:
@@ -82,9 +82,5 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
 
     return { comments, user };
-  }
-
-  genId(comments: Comment[]): number {
-    return comments.length > 0 ? Math.max(...comments.map((comment) => comment.id)) + 1 : 11;
   }
 }

@@ -152,7 +152,7 @@
 @if (isReplyComposerOpen) {
 <div class="mt-2">
   <app-card>
-    <app-comment-composer [currentUser]="currentUser" [clickHandler]="reply.bind(this)" />
+    <app-comment-composer [currentUser]="currentUser" [clickHandler]="addReply.bind(this)" />
   </app-card>
 </div>
 }

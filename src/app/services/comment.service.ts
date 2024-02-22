@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, catchError, of, tap } from "rxjs";
 // import { map } from "rxjs/operators";
-import { CommentData, Comment } from "../interfaces/comment";
+import {  Comment } from "../interfaces/comment";
 import { User } from "../interfaces/user";
 
 @Injectable({
@@ -18,7 +18,7 @@ export class CommentService {
   getComments(): Observable<Comment[]> {
     return this.httpClient.get<Comment[]>(this.commentsAPI).pipe(
       tap((data) => {
-        console.log("comments --> ", data);
+        // console.log("comments --> ", data);
       }),
       catchError(this.handleError<Comment[]>("getComments")),
     );
@@ -27,20 +27,37 @@ export class CommentService {
   getUser(): Observable<User> {
     return this.httpClient.get<User>(this.userAPI).pipe(
       tap((data) => {
-        console.log("user --> ", data);
+        // console.log("user --> ", data);
       }),
       catchError(this.handleError<User>("getUser")),
     );
   }
 
-  addComment(newComment: Comment): Observable<Comment> {
-    return this.httpClient.post<Comment>(this.commentsAPI, newComment, this.httpOptions).pipe(
-      tap((newComment: Comment) => {
+  addComment(comment: Comment): Observable<Comment> {
+    return this.httpClient.post<Comment>(this.commentsAPI, comment, this.httpOptions).pipe(
+      tap((comment: Comment) => {
         // console.log("added a new comment");
       }),
       catchError(this.handleError<Comment>("addComment")),
     );
   }
+
+  addReply(reply: Comment): Observable<Comment> {
+    return this.httpClient.post<Comment>(this.commentsAPI, reply, this.httpOptions).pipe(
+      tap((reply: Comment) => {
+        // console.log("added a new reply");
+      }),
+      catchError(this.handleError<Comment>("addReply")),
+    );
+  }
+
+  genId(): number {
+    const min = 1;
+    const max = 10_000_000;
+
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
