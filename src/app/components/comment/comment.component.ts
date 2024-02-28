@@ -6,10 +6,10 @@ import { Comment } from "../../interfaces/comment";
 import { User } from "../../interfaces/user";
 import { CardComponent } from "../shared/card/card.component";
 import { AvatarComponent } from "../shared/avatar/avatar.component";
-import { DialogComponent } from "../shared/dialog/dialog.component";
 import { ButtonComponent } from "../shared/button/button.component";
 import { CommentComposerComponent } from "../comment-composer/comment-composer.component";
 import { CommentService } from "../../services/comment.service";
+import { DeleteModalComponent } from "../delete-modal/delete-modal.component";
 
 @Component({
   selector: "app-comment",
@@ -19,9 +19,9 @@ import { CommentService } from "../../services/comment.service";
     FormsModule,
     CardComponent,
     AvatarComponent,
-    DialogComponent,
     ButtonComponent,
     CommentComposerComponent,
+    DeleteModalComponent
   ],
   templateUrl: "./comment.component.html",
 })
@@ -29,30 +29,35 @@ export class CommentComponent {
   @Input() comment!: Comment;
   @Input() parentComment!: Comment;
   @Input() currentUser!: User;
-  @Output() deleteComment = new EventEmitter<number>();
   @Input() addCommentHandler: () => void = () => {};
 
   isReplyComposerOpen = false;
   isCommentEditorOpen = false;
 
   commentSubscription?: Subscription;
+  editSubscription?: Subscription;
 
   constructor(private commentService: CommentService) {}
 
   ngOnDestroy() {
     this.commentSubscription?.unsubscribe();
+    this.editSubscription?.unsubscribe();
   }
 
   openReplyComposer() {
     this.isReplyComposerOpen = true;
   }
 
+  closeReplyComposer() {
+    this.isReplyComposerOpen = false;
+  }
+
   openCommentEditor() {
     this.isCommentEditorOpen = true;
   }
 
-  closeReplyComposer() {
-    this.isReplyComposerOpen = false;
+  closeCommentEditor() {
+    this.isCommentEditorOpen = false;
   }
 
   vote(voteType: "upvote" | "downvote") {
@@ -79,8 +84,24 @@ export class CommentComponent {
     return votedUsers[this.currentUser?.username || ""] === voteType;
   }
 
-  onDeleteComment() {
-    this.deleteComment.emit(this.comment.id);
+  deleteComment() {
+    console.log("deleting...")
+  }
+
+  updateComment(updated: string) {
+    const editedComment: Comment = {
+      ...this.comment,
+      content: updated,
+      user: {
+        ...this.comment.user,
+      },
+    };
+
+    this.editSubscription = this.commentService.updateComment(this.comment.id, editedComment).subscribe((comment) => {
+      this.comment.content = editedComment.content;
+    });
+
+    this.closeCommentEditor();
   }
 
   addReply(replyBody: string) {
@@ -100,7 +121,7 @@ export class CommentComponent {
       if (this.comment.replies) {
         this.comment.replies.push(reply);
       } else {
-         this.parentComment?.replies?.push(reply);
+        this.parentComment?.replies?.push(reply);
       }
     });
 

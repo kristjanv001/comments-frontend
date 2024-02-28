@@ -51,6 +51,15 @@ export class CommentService {
     );
   }
 
+  updateComment(id: number, updatedComment: Comment): Observable<Comment> {
+    return this.httpClient.put<Comment>(this.commentsAPI, updatedComment, this.httpOptions).pipe(
+      tap((updatedComment: Comment) => {
+        // console.log("new edited comment is: ", updatedComment);
+      }),
+      catchError(this.handleError<Comment>("editComment")),
+    );
+  }
+
   genId(): number {
     const min = 1;
     const max = 10_000_000;

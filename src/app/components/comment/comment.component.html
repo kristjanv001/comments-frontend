@@ -21,14 +21,15 @@
     <!-- content -->
     <div class="col-span-3 col-start-1 row-start-2 mt-4 w-full leading-6 sm:col-span-3 sm:col-start-2">
       @if (isCommentEditorOpen) {
-      <div>
-        <app-comment-composer
-          [currentUser]="currentUser"
-          buttonText="Update"
-          [isEdit]="true"
-          [commentContent]="comment.content"
-        />
-      </div>
+
+      <app-comment-composer
+        [currentUser]="currentUser"
+        buttonText="Update"
+        [isEdit]="true"
+        [commentContent]="comment.content"
+        [clickHandler]="updateComment.bind(this)"
+      />
+
       } @else {
       <p>
         @if (comment.replyingTo) {
@@ -77,43 +78,8 @@
     <!-- buttons -->
     <div class="col-span-2 col-start-2 row-start-3 h-10 self-end sm:col-start-3 sm:row-start-1 sm:h-full">
       @if(currentUser.username === comment.user.username) {
-
-      <!-- dialog/modal -->
-      <app-dialog header="Delete Comment" name="deleteModal">
-        <div app-dialog-content>
-          Are you sure you want to delete this comment? This will remove the comment and can’t be undone.
-        </div>
-        <div class="flex items-center" app-dialog-footer>
-          <div class="mr-3">
-            <app-button buttonText="No, cancel" buttonType="secondary" data-modal-hide="deleteModal" />
-          </div>
-          <app-button
-            buttonText="Yes, delete"
-            buttonType="destructive"
-            data-modal-hide="deleteModal"
-          />
-        </div>
-      </app-dialog>
-
       <div class="flex h-full items-center justify-end">
-        <div>
-          <button
-            data-modal-target="deleteModal"
-            data-modal-toggle="deleteModal"
-            class="group flex min-w-16 items-center justify-center"
-          >
-            <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M1.167 12.448c0 .854.7 1.552 1.555 1.552h6.222c.856 0 1.556-.698 1.556-1.552V3.5H1.167v8.948Zm10.5-11.281H8.75L7.773 0h-3.88l-.976 1.167H0v1.166h11.667V1.167Z"
-                fill="#ED6368"
-                class="group-hover:fill-pale-red duration-150 ease-in-out"
-              />
-            </svg>
-            <span class="text-soft-red group-hover:text-pale-red ml-2 font-medium duration-150 ease-in-out"
-              >Delete</span
-            >
-          </button>
-        </div>
+        <app-delete-modal />
         <div class="ml-4">
           <button class="group flex min-w-16 items-center justify-center" (click)="openCommentEditor()">
             <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">

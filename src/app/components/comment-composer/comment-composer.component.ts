@@ -21,10 +21,13 @@ export class CommentComposerComponent {
   @Input() clickHandler!: (text: string) => void;
 
   placeholderText = "Add a comment...";
-
   commentForm = new FormGroup({
     body: new FormControl("", [Validators.required, Validators.minLength(4)]),
   });
+
+  ngOnInit() {
+    this.commentForm.get('body')?.setValue(this.commentContent);
+  }
 
   get bodyControl() {
     return this.commentForm.get('body');
@@ -34,9 +37,9 @@ export class CommentComposerComponent {
     this.commentForm.markAllAsTouched();
 
     if (this.commentForm.valid) {
-      const bodyValue = this.commentForm.value.body ?? "";
+      this.commentContent = this.commentForm.value.body ?? "";
 
-      this.clickHandler(bodyValue);
+      this.clickHandler(this.commentContent);
       this.commentForm.reset();
     }
   }

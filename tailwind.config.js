@@ -1,9 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-    "./node_modules/flowbite/**/*.js"
-  ],
+  presets: [require("@spartan-ng/ui-core/hlm-tailwind-preset")],
+  content: ["./src/**/*.{html,ts}", "./src/app/ui/**/*.{html,ts}"],
   theme: {
     extend: {
       colors: {
@@ -15,16 +13,15 @@ module.exports = {
         "grayish-blue": "#67727E",
         "soft-red": "#ED6368",
         "pale-red": "#FFB8BB",
+        "spanish-grey": "#979797"
       },
       gridAutoColumns: {
-              'min': 'min-content',
-            }
+        min: "min-content",
+      },
     },
   },
   variants: {
-      fill: ['hover', 'focus'],
-    },
-  plugins: [
-    require('flowbite/plugin')
-  ],
-}
+    fill: ["hover", "focus"],
+  },
+  plugins: [],
+};

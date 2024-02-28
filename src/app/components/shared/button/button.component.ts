@@ -8,9 +8,9 @@ import { CommonModule } from "@angular/common";
   templateUrl: "./button.component.html",
 })
 export class ButtonComponent {
-  @Input() buttonText: string = "";
+  @Input() buttonText: string = "Default";
   @Input() buttonType: "primary" | "destructive" | "secondary" = "primary";
-  @Input() clickHandler!: () => void;
+  @Input() clickHandler: () => void = () => null;
   @Input() disabled = false;
 
   get buttonClass(): string {
