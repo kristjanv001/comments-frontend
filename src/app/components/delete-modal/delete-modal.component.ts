@@ -35,10 +35,7 @@ import { ButtonComponent } from "../shared/button/button.component";
   templateUrl: "./delete-modal.component.html",
 })
 export class DeleteModalComponent {
-
   deleteComment() {
     console.log("deleting comment");
-
-
   }
 }
