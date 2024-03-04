@@ -53,6 +53,8 @@ export class CommentComponent {
   }
 
   openCommentEditor() {
+    console.log("opened the editor")
+
     this.isCommentEditorOpen = true;
   }
 

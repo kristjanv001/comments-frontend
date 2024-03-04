@@ -20,11 +20,12 @@
     </form>
   </div>
 
-  @if (!isEdit) {
-  <div class="flex h-8 w-8 items-center self-center sm:col-start-1 sm:row-start-1 sm:h-10 sm:w-10 sm:items-start">
+  <div
+    *ngIf="!isEdit"
+    class="flex h-8 w-8 items-center self-center sm:col-start-1 sm:row-start-1 sm:h-10 sm:w-10 sm:items-start"
+  >
     <app-avatar [username]="currentUser?.username" />
   </div>
-  }
 
   <div
     class="flex justify-end"
@@ -39,9 +40,9 @@
   </div>
 </div>
 <div
-  *ngIf="(bodyControl?.touched && bodyControl?.hasError('required') || bodyControl?.hasError('minlength'))"
+  *ngIf="(commentForm.touched && !commentForm.pristine && body?.errors?.['required'] || body?.errors?.['minlength'])"
   class="text-soft-red mt-2 inline-flex rounded-full bg-red-100 px-2 py-1 text-xs"
 >
-  <p *ngIf="bodyControl?.hasError('required')">Comment is required</p>
-  <p *ngIf="bodyControl?.hasError('minlength')">Comment must be at least 4 characters long</p>
+  <p *ngIf="body?.errors?.['required']">Comment is required</p>
+  <p *ngIf="body?.errors?.['minlength']">Comment must be at least 4 characters long</p>
 </div>

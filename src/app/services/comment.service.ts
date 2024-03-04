@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, catchError, of, tap } from "rxjs";
 // import { map } from "rxjs/operators";
-import {  Comment } from "../interfaces/comment";
+import { Comment } from "../interfaces/comment";
 import { User } from "../interfaces/user";
 
 @Injectable({
@@ -45,16 +45,17 @@ export class CommentService {
   addReply(reply: Comment): Observable<Comment> {
     return this.httpClient.post<Comment>(this.commentsAPI, reply, this.httpOptions).pipe(
       tap((reply: Comment) => {
-        // console.log("added a new reply");
+        console.log("added a new reply", reply);
       }),
       catchError(this.handleError<Comment>("addReply")),
     );
   }
 
-  updateComment(id: number, updatedComment: Comment): Observable<Comment> {
-    return this.httpClient.put<Comment>(this.commentsAPI, updatedComment, this.httpOptions).pipe(
+
+  updateComment(id: number, comment: Comment): Observable<Comment> {
+    return this.httpClient.put<Comment>(this.commentsAPI, comment, this.httpOptions).pipe(
       tap((updatedComment: Comment) => {
-        // console.log("new edited comment is: ", updatedComment);
+        console.log("updatedComment", updatedComment);
       }),
       catchError(this.handleError<Comment>("editComment")),
     );
@@ -66,7 +67,6 @@ export class CommentService {
 
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
