@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { BrnAlertDialogContentDirective, BrnAlertDialogTriggerDirective } from "@spartan-ng/ui-alertdialog-brain";
 import {
   HlmAlertDialogActionButtonDirective,
@@ -35,7 +35,6 @@ import { ButtonComponent } from "../shared/button/button.component";
   templateUrl: "./delete-modal.component.html",
 })
 export class DeleteModalComponent {
-  deleteComment() {
-    console.log("deleting comment");
-  }
+  @Input() clickHandler!: () => void;
+
 }

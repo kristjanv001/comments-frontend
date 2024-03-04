@@ -18,7 +18,7 @@
     </hlm-alert-dialog-header>
     <hlm-alert-dialog-footer>
       <app-button buttonText="No, Cancel" buttonType="secondary" (click)="ctx.close()" class="mr-3.5" />
-      <app-button buttonText="Yes, Delete" buttonType="destructive" [clickHandler]="deleteComment" (click)="ctx.close()" />
+      <app-button buttonText="Yes, Delete" buttonType="destructive" (click)="ctx.close()" (click)="clickHandler()" />
     </hlm-alert-dialog-footer>
   </hlm-alert-dialog-content>
 </hlm-alert-dialog>

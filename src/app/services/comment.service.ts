@@ -42,20 +42,28 @@ export class CommentService {
     );
   }
 
+  deleteComment(id: number): Observable<Comment> {
+    return this.httpClient.delete<Comment>(this.commentsAPI).pipe(
+      tap((comment: Comment) => {
+        // console.log("deleted a comment");
+      }),
+      catchError(this.handleError<Comment>("deleteComment")),
+    );
+  }
+
   addReply(reply: Comment): Observable<Comment> {
     return this.httpClient.post<Comment>(this.commentsAPI, reply, this.httpOptions).pipe(
       tap((reply: Comment) => {
-        console.log("added a new reply", reply);
+        // console.log("added a new reply", reply);
       }),
       catchError(this.handleError<Comment>("addReply")),
     );
   }
 
-
   updateComment(id: number, comment: Comment): Observable<Comment> {
     return this.httpClient.put<Comment>(this.commentsAPI, comment, this.httpOptions).pipe(
       tap((updatedComment: Comment) => {
-        console.log("updatedComment", updatedComment);
+        // console.log("updatedComment", updatedComment);
       }),
       catchError(this.handleError<Comment>("editComment")),
     );

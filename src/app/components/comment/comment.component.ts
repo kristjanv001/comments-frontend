@@ -33,15 +33,12 @@ export class CommentComponent {
 
   isReplyComposerOpen = false;
   isCommentEditorOpen = false;
-
   commentSubscription?: Subscription;
-  editSubscription?: Subscription;
 
   constructor(private commentService: CommentService) {}
 
   ngOnDestroy() {
     this.commentSubscription?.unsubscribe();
-    this.editSubscription?.unsubscribe();
   }
 
   openReplyComposer() {
@@ -53,8 +50,6 @@ export class CommentComponent {
   }
 
   openCommentEditor() {
-    console.log("opened the editor")
-
     this.isCommentEditorOpen = true;
   }
 
@@ -82,12 +77,19 @@ export class CommentComponent {
 
   hasvoted(voteType: "upvote" | "downvote"): boolean {
     const votedUsers = this.comment.votedUsers || {};
-
     return votedUsers[this.currentUser?.username || ""] === voteType;
   }
 
   deleteComment() {
-    console.log("deleting...")
+    this.commentSubscription = this.commentService.deleteComment(this.comment.id).subscribe((reply) => {
+      if (this.comment.replies) {
+        // console.log("deleting a comment")
+      } else {
+        this.parentComment.replies = this.parentComment?.replies?.filter((comment) => comment.id !== this.comment.id)
+      }
+    });
+
+
   }
 
   updateComment(updated: string) {
@@ -99,7 +101,7 @@ export class CommentComponent {
       },
     };
 
-    this.editSubscription = this.commentService.updateComment(this.comment.id, editedComment).subscribe((comment) => {
+    this.commentSubscription = this.commentService.updateComment(this.comment.id, editedComment).subscribe((comment) => {
       this.comment.content = editedComment.content;
     });
 
